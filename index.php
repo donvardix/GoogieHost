@@ -2,4 +2,5 @@
 
 require_once 'MyFuncs.php';
 
-echo MyFuncs::get_content('https://steamcommunity.com/market/search?q=Bracers+of+the+Cavern+Luminar');
+print_r( MyFuncs::get_content('https://steamcommunity.com/market/search?q=Bracers+of+the+Cavern+Luminar'));
+//var_dump( MyFuncs::get_content('http://php.donvardix.pp.ua/test.php/'));
