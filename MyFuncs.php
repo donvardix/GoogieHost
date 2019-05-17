@@ -1,5 +1,8 @@
 <?php
 
+require_once 'lib/phpQuery.php';
+
+
 class MyFuncs
 {
   function get_content($url){
@@ -11,8 +14,23 @@ class MyFuncs
     return $html;
   }
 
-  function test($a){
-    echo $a;
+  function parser_f($url, $find){
+    $html=MyFuncs::get_content($url);
+    $doc=phpQuery::newDocument($html);
+    foreach($doc->find($find) as $article){
+      $article=pq($article);
+      $name=$article->find('.market_listing_item_name')->html();
+      $val=$article->find('.market_listing_num_listings_qty')->html();
+      //print_r($name);
+      echo "$name - $val.<br>";
+    }
+  }
+
+  function parser($url, $find){
+    $html=MyFuncs::get_content($url);
+    $doc=phpQuery::newDocument($html);
+    $res=$doc->find($find);
+    return $res;
   }
 }
 

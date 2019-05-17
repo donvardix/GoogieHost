@@ -5,11 +5,10 @@
     <title>TITLE</title>
   </head>
   <body>
-    <h1>TEST</h1>
-    <?php
 
-    echo '222222222';
-
-    ?>
+    <div class="qwer">
+      <h1>TEST</h1>
+      <?php echo '222222222'; ?>
+    </div>
   </body>
 </html>
