@@ -3,10 +3,11 @@
 require_once 'lib/phpQuery.php';
 require_once 'pdo/db.php';
 
+date_default_timezone_set('Europe/Kiev');
 
 class Parser
 {
-  function get_html($url){ // Функция получение HTML страницы (CURL)
+  static function get_html($url){ // Функция получение HTML страницы (CURL)
     $init=curl_init($url); // Инициализирует сеанс cURL
     curl_setopt($init, CURLOPT_FOLLOWLOCATION, true); // Разрешает редирект по сайту
     curl_setopt($init, CURLOPT_RETURNTRANSFER, true); // возврат результата в качестве строки
@@ -15,7 +16,7 @@ class Parser
     return $html;
   }
 
-  function get_data($url, $find){ // Функция парсера steam
+  static function get_data($url, $find){ // Функция парсера steam
     $html=self::get_html($url); // Вызываем функцию get_html() и HTML помещаем в переменную $html
     $doc=phpQuery::newDocument($html); // С помощью библиотеки phpQuery создаем объект из HTML
     foreach($doc->find($find) as $el){ // Цикл поиска элементов
@@ -34,11 +35,11 @@ class Parser
 
 class DB
 {
-  function send($arr){
+  static function send($arr){
     global $pdo;
-    $sql='INSERT INTO bracers_of_the_cavern_luminar(date, val, price) VALUES(now(), ?, ?)';
+    $sql='INSERT INTO bracers_of_the_cavern_luminar(date, val, price) VALUES(?, ?, ?)';
     $query=$pdo->prepare($sql);
-    $query->execute([$arr['val'], $arr['price']]);
+    $query->execute([date('Y-m-d H:i:s'), $arr['val'], $arr['price']]);
   }
 }
 

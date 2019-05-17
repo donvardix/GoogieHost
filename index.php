@@ -14,7 +14,7 @@
   <script src="../lib/exporting.js"></script>
   <script src="../lib/export-data.js"></script>
   <script type="text/javascript">
-    $.getJSON('http://php.donvardix.pp.ua/json.php', function (data) {
+    $.getJSON('json.php', function (data) {
       // Create the chart
       Highcharts.stockChart('container', {
           rangeSelector: {

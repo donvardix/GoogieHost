@@ -5,7 +5,7 @@ $query=$pdo->query('SELECT date, val FROM bracers_of_the_cavern_luminar')->fetch
 $all=[];
 
 foreach ($query as $el) {
-	$all[]=[(strtotime($el->date)+10800)*1000, (int)$el->val];
+	$all[]=[strtotime($el->date)*1000, (int)$el->val];
 }
 echo json_encode($all);
 
