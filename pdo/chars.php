@@ -27,15 +27,33 @@ $.getJSON('http://php.donvardix.pp.ua/pdo/jsonp.php', function (data) {
 
 
         rangeSelector: {
-            selected: 1
+					buttons: [{
+							type: 'minute',
+							count: 5,
+							text: '5 min'
+					}, {
+							type: 'hour',
+							count: 1,
+							text: '1h'
+					}, {
+							type: 'day',
+							count: 1,
+							text: '1D'
+					}, {
+							type: 'all',
+							count: 1,
+							text: 'All'
+					}],
+					selected: 1,
+					inputEnabled: false
         },
 
         title: {
-            text: 'AAPL Stock Price'
+            text: 'AAPL Stock Price11111'
         },
 
         series: [{
-            name: 'AAPL Stock Price',
+            name: 'AAPL Stock Price2222',
             data: data,
             marker: {
                 enabled: true,
