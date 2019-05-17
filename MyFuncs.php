@@ -1,9 +1,10 @@
 <?php
 
 require_once 'lib/phpQuery.php';
+require_once 'pdo/db.php';
 
 
-class MyFuncs
+class Parser
 {
   function get_html($url){ // Функция получение HTML страницы (CURL)
     $init=curl_init($url); // Инициализирует сеанс cURL
@@ -14,14 +15,14 @@ class MyFuncs
     return $html;
   }
 
-  function parser_steam($url, $find){ // Функция парсера steam
-    $html=MyFuncs::get_html($url); // Вызываем функцию get_html() и HTML помещаем в переменную $html
+  function get_data($url, $find){ // Функция парсера steam
+    $html=self::get_html($url); // Вызываем функцию get_html() и HTML помещаем в переменную $html
     $doc=phpQuery::newDocument($html); // С помощью библиотеки phpQuery создаем объект из HTML
     foreach($doc->find($find) as $el){ // Цикл поиска элементов
       $el=pq($el); // DOM -> Object phpQuery
       $name=$el->find('.market_listing_item_name')->html(); // Поиск элемента 'Имя'
       if($name=='Bracers of the Cavern Luminar'){ // Проеверка на определенное имя
-        $val=$el->find('.market_listing_num_listings_qty')->html(); // Поиск элемента 'Количество'
+        $val=$el->find('.market_listing_num_listings_qty')->attr('data-qty'); // Поиск элемента 'Количество'
         $price=$el->find('.normal_price .normal_price')->html(); // Поиск элемента 'Цена'
         break; // Если имя совпало цикл останавливается
       }
@@ -29,9 +30,15 @@ class MyFuncs
     $res=['name'=>$name, 'val'=>$val, 'price'=>$price];
     return $res;
   }
+}
 
-  function db(){
-
+class DB
+{
+  function send($arr){
+    global $pdo;
+    $sql='INSERT INTO bracers_of_the_cavern_luminar(date, val, price) VALUES(now(), ?, ?)';
+    $query=$pdo->prepare($sql);
+    $query->execute([$arr['val'], $arr['price']]);
   }
 }
 

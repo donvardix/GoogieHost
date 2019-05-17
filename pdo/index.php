@@ -7,17 +7,11 @@
   <body>
     <?php
       require_once 'db.php';
-      //echo strtotime('2011-10-14 15:58:00');
-      //exit();
 
-      //$pdo->query("SELECT COUNT(*) FROM nametable")->fetchColumn();
-
-      $query=$pdo->query('SELECT date, value FROM steam_price')->fetchAll(PDO::FETCH_OBJ);
-      var_dump($query);
-      echo '<hr>';
-      //echo json_encode($query);
-      foreach ($query as $price) {
-        echo "$price->value || $price->date<hr>";
+      $query=$pdo->query('SELECT date, val, price FROM bracers_of_the_cavern_luminar')->fetchAll(PDO::FETCH_OBJ);
+      echo '<h1>Bracers of the Cavern Luminar</h1>';
+      foreach ($query as $el) {
+        echo "$el->date || $el->val || $el->price<hr>";
       }
 
     ?>
