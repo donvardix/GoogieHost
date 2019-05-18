@@ -1,6 +1,5 @@
 <?php
-
-require_once $_SERVER['DOCUMENT_ROOT'].'lib/phpQuery.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/lib/phpQuery.php';
 
 class Parser
 {
@@ -13,10 +12,10 @@ class Parser
     return $html;
   }
 
-  static function get_data($url, $find){ // Функция парсера steam
+  static function get_data($url){ // Функция парсера steam
     $html=self::get_html($url); // Вызываем функцию get_html() и HTML помещаем в переменную $html
     $doc=phpQuery::newDocument($html); // С помощью библиотеки phpQuery создаем объект из HTML
-    foreach($doc->find($find) as $el){ // Цикл поиска элементов
+    foreach($doc->find('#searchResultsRows .market_recent_listing_row') as $el){ // Цикл поиска элементов
       $el=pq($el); // DOM -> Object phpQuery
       $name=$el->find('.market_listing_item_name')->html(); // Поиск элемента 'Имя'
       if($name=='Bracers of the Cavern Luminar'){ // Проеверка на определенное имя
@@ -28,8 +27,17 @@ class Parser
     $res=['name'=>$name, 'val'=>$val, 'price'=>$price];
     return $res;
   }
+
+  static function get_data_item($url){
+    $html=self::get_html($url);
+    $doc=phpQuery::newDocument($html);
+    $name=$doc->find('.market_listing_item_name:eq(0)')->html();
+    $val=$doc->find('#searchResults_total')->html();
+    $res=['name'=>$name, 'val'=>$val];
+    return $res;
+  }
+
+
+
 }
-
-
-
 ?>
