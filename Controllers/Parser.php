@@ -12,18 +12,18 @@ class Parser
     return $html;
   }
 
-  static function get_data_item($title){
+  static function get_data_item($title){ // Функция парсера dota вещей по названию
     $url='https://steamcommunity.com/market/listings/570/'.str_replace(' ', '%20', $title);
-    $html=self::get_html($url);
-    $doc=phpQuery::newDocument($html);
-    $name=$doc->find('.market_listing_item_name:eq(0)')->html();
-    $val=str_replace(',', '', $doc->find('#searchResults_total')->html()); // Удаляет запятые в строке
+    $html=self::get_html($url); // Вызываем функцию get_html() и HTML помещаем в переменную $html
+    $doc=phpQuery::newDocument($html); // С помощью библиотеки phpQuery создаем объект из HTML
+    $name=$doc->find('.market_listing_item_name:eq(0)')->html(); // Поиск элемента 'Имя'
+    $val=$doc->find('#searchResults_total')->html(); // Поиск элемента 'Количество'
+    $val=str_replace(',', '', $val); // Удаляет запятые в строке
     $res=['name'=>$name, 'val'=>$val];
-    print_r($res);
     return $res;
   }
 
-  static function get_data($title){ // Функция парсера steam УСТАРЕВШАЯ
+  static function get_data($title){ // УСТАРЕВШАЯ Функция парсера steam !не работает!
     $url='https://steamcommunity.com/market/listings/570/'.str_replace(' ', '%20', $title);
     $html=self::get_html($url); // Вызываем функцию get_html() и HTML помещаем в переменную $html
     $doc=phpQuery::newDocument($html); // С помощью библиотеки phpQuery создаем объект из HTML
