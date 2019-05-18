@@ -12,7 +12,19 @@ class Parser
     return $html;
   }
 
-  static function get_data($url){ // Функция парсера steam
+  static function get_data_item($title){
+    $url='https://steamcommunity.com/market/listings/570/'.str_replace(' ', '%20', $title);
+    $html=self::get_html($url);
+    $doc=phpQuery::newDocument($html);
+    $name=$doc->find('.market_listing_item_name:eq(0)')->html();
+    $val=str_replace(',', '', $doc->find('#searchResults_total')->html()); // Удаляет запятые в строке
+    $res=['name'=>$name, 'val'=>$val];
+    print_r($res);
+    return $res;
+  }
+
+  static function get_data($title){ // Функция парсера steam УСТАРЕВШАЯ
+    $url='https://steamcommunity.com/market/listings/570/'.str_replace(' ', '%20', $title);
     $html=self::get_html($url); // Вызываем функцию get_html() и HTML помещаем в переменную $html
     $doc=phpQuery::newDocument($html); // С помощью библиотеки phpQuery создаем объект из HTML
     foreach($doc->find('#searchResultsRows .market_recent_listing_row') as $el){ // Цикл поиска элементов
@@ -27,17 +39,6 @@ class Parser
     $res=['name'=>$name, 'val'=>$val, 'price'=>$price];
     return $res;
   }
-
-  static function get_data_item($url){
-    $html=self::get_html($url);
-    $doc=phpQuery::newDocument($html);
-    $name=$doc->find('.market_listing_item_name:eq(0)')->html();
-    $val=$doc->find('#searchResults_total')->html();
-    $res=['name'=>$name, 'val'=>$val];
-    return $res;
-  }
-
-
 
 }
 ?>
