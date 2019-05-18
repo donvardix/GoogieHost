@@ -1,13 +1,7 @@
 <?php
-require_once 'pdo/db.php';
 
-$query=$pdo->query('SELECT date, val FROM bracers_of_the_cavern_luminar')->fetchAll(PDO::FETCH_OBJ);
-$all=[];
+require_once 'Controllers/Db.php';
 
-foreach ($query as $el) {
-	$all[]=[strtotime($el->date)*1000, (int)$el->val];
-}
-echo json_encode($all);
-
+echo Db::ToJson();
 
 ?>

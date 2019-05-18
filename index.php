@@ -35,7 +35,7 @@
   							count: 1,
   							text: 'All'
   					}],
-  					selected: 1,
+  					selected: 3,
   					inputEnabled: false
           },
 
@@ -58,5 +58,9 @@
       });
   });
   </script>
+  <?php
+  require_once $_SERVER['DOCUMENT_ROOT'].'/Controllers/Db.php';
+  Db::get();
+  ?>
 </body>
 </html>

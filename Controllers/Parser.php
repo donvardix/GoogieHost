@@ -1,9 +1,6 @@
 <?php
 
-require_once 'lib/phpQuery.php';
-require_once 'pdo/db.php';
-
-date_default_timezone_set('Europe/Kiev');
+require_once $_SERVER['DOCUMENT_ROOT'].'lib/phpQuery.php';
 
 class Parser
 {
@@ -33,14 +30,6 @@ class Parser
   }
 }
 
-class DB
-{
-  static function send($arr){
-    global $pdo;
-    $sql='INSERT INTO bracers_of_the_cavern_luminar(date, val, price) VALUES(?, ?, ?)';
-    $query=$pdo->prepare($sql);
-    $query->execute([date('Y-m-d H:i:s'), $arr['val'], $arr['price']]);
-  }
-}
+
 
 ?>
