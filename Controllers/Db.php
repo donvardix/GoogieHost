@@ -49,6 +49,9 @@ class Db
       $sql='INSERT INTO list_items(item) VALUES(?)';
       $query=$pdo->prepare($sql);
       $query->execute([$item]);
+      echo 'Success';
+    }else{
+      echo 'Error';
     }
   }
 
