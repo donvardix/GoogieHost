@@ -1,9 +1,13 @@
 <?php
 
-require_once $_SERVER['DOCUMENT_ROOT'].'/Controllers/Parser.php';
-require_once $_SERVER['DOCUMENT_ROOT'].'/Controllers/Db.php';
+require_once 'Controllers/Parser.php';
+require_once 'Controllers/Db.php';
 
-$arr = Parser::get_data_item('Bracers of the Cavern Luminar');
-Db::send($arr);
+$query=$pdo->query('SELECT item FROM list_items')->fetchAll(PDO::FETCH_OBJ);
+foreach ($query as $name) {
+  $arr = Parser::get_data_item($name->item);
+  Db::send($arr, $name->item);
+}
+
 
 ?>

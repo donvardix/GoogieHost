@@ -6,6 +6,8 @@
   <title>График предмета</title>
 </head>
 <body>
+  <a href="/?id=immortal_treasure_i_2017">Immortal Treasure I 2017</a>
+  <a href="/?id=bracers_of_the_cavern_luminar">Bracers of the Cavern Luminar</a>
   <div id="container" style="height: 400px; min-width: 310px"></div>
 
 
@@ -14,7 +16,7 @@
   <script src="../lib/exporting.js"></script>
   <script src="../lib/export-data.js"></script>
   <script type="text/javascript">
-    $.getJSON('json.php', function (data) {
+    $.getJSON('json.php?id=<?php echo $_GET['id']; ?>', function (data) {
       // Create the chart
       Highcharts.stockChart('container', {
           rangeSelector: {
@@ -59,8 +61,8 @@
   });
   </script>
   <?php
-  require_once $_SERVER['DOCUMENT_ROOT'].'/Controllers/Db.php';
-  Db::get();
+  require_once 'Controllers/Db.php';
+  Db::get($_GET['id']);
   ?>
 </body>
 </html>
