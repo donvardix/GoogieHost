@@ -1,6 +1,6 @@
 <?php
 
-require_once $_SERVER['DOCUMENT_ROOT'].'/config.php';
+require_once 'config.php';
 date_default_timezone_set('Europe/Kiev'); // Установка часового пояса для сервера
 
 class Db

@@ -1,5 +1,5 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'].'/lib/phpQuery.php';
+require_once 'phpQuery.php';
 
 class Parser
 {
