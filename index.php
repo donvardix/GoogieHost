@@ -31,23 +31,19 @@
       Highcharts.stockChart('container', {
           rangeSelector: {
   					buttons: [{
-  							type: 'minute',
-  							count: 5,
-  							text: '5 min'
-  					}, {
-  							type: 'hour',
-  							count: 1,
-  							text: '1h'
-  					}, {
   							type: 'day',
   							count: 1,
   							text: '1D'
+  					}, {
+  							type: 'day',
+  							count: 7,
+  							text: '1W'
   					}, {
   							type: 'all',
   							count: 1,
   							text: 'All'
   					}],
-  					selected: 3,
+  					selected: 2,
   					inputEnabled: false
           },
 
