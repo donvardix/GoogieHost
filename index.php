@@ -92,8 +92,7 @@
         $('#info').html('<hr><p class="text-warning">Updated</p>');
       },
       success: function(){
-        $('#info').html('<hr><p class="text-success">Success</p>');
-        qwe='<?php echo ($_SERVER['REQUEST_URI']=='/') ? 'bracers_of_the_cavern_luminar' : urlencode($_GET['id']); ?>';
+        location.reload();
       }
     });
   });
