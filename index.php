@@ -13,9 +13,11 @@
     <form class="" action="" method="post">
       <input id="name" class="form-control" type="text" name="name" placeholder="Имя предмета"><br>
       <button id="send" class="btn btn-success" type="button">Отправить</button>
+      <button id="update" class="btn btn-warning" type="button">Обновить</button>
     </form>
+    <div id="info"></div>
     <hr>
-    <div id="list"><?php Db::get_name_item(); echo __DIR__; ?></div>
+    <div id="list"><?php Db::get_name_item(); ?></div>
   </div>
 
 
@@ -24,7 +26,7 @@
   <script src="../lib/exporting.js"></script>
   <script src="../lib/export-data.js"></script>
   <script type="text/javascript">
-    $.getJSON('json.php?id=<?php echo $_GET['id']; ?>', function (data) {
+    $.getJSON("json.php?id=<?php echo ($_SERVER['REQUEST_URI']=='/') ? 'bracers_of_the_cavern_luminar' : $_GET['id']; ?>", function (data) {
       // Create the chart
       Highcharts.stockChart('container', {
           rangeSelector: {
@@ -50,7 +52,7 @@
           },
 
           title: {
-              text: 'Bracers of the Cavern Luminar'
+              text: <?php echo  "'".str_replace("'", '', Db::item_underTOitem($_GET['id']))."'"; ?>
           },
 
           series: [{
@@ -79,6 +81,23 @@
       dataType: 'html',
       success: function(data){
         $('#list').html(data);
+      }
+    });
+  });
+
+  $('#update').on('click', function(){
+    $.ajax({
+      url: 'update.php',
+      type: 'POST',
+      cache: false,
+      data: {'name':name},
+      dataType: 'html',
+      beforeSend: function(){
+        $('#info').html('<hr><p class="text-warning">Updated</p>');
+      },
+      success: function(){
+        $('#info').html('<hr><p class="text-success">Success</p>');
+        qwe='<?php echo ($_SERVER['REQUEST_URI']=='/') ? 'bracers_of_the_cavern_luminar' : urlencode($_GET['id']); ?>';
       }
     });
   });
