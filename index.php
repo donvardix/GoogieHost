@@ -3,12 +3,20 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <title>График предмета</title>
 </head>
 <body>
-  <a href="/?id=immortal_treasure_i_2017">Immortal Treasure I 2017</a>
-  <a href="/?id=bracers_of_the_cavern_luminar">Bracers of the Cavern Luminar</a>
+  <?php require_once 'Controllers/Db.php'; ?>
   <div id="container" style="height: 400px; min-width: 310px"></div>
+  <div class="container">
+    <form class="" action="" method="post">
+      <input id="name" class="form-control" type="text" name="name" placeholder="Имя предмета"><br>
+      <button id="send" class="btn btn-success" type="button">Отправить</button>
+    </form>
+    <hr>
+    <div id="list"><?php Db::get_name_item(); echo __DIR__; ?></div>
+  </div>
 
 
   <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
@@ -60,9 +68,21 @@
       });
   });
   </script>
-  <?php
-  require_once 'Controllers/Db.php';
-  Db::get($_GET['id']);
-  ?>
+  <script>
+  $('#send').on('click', function(){
+    var name=$('#name').val().trim();
+    $.ajax({
+      url: 'add.php',
+      type: 'POST',
+      cache: false,
+      data: {'name':name},
+      dataType: 'html',
+      success: function(data){
+        $('#list').html(data);
+      }
+    });
+  });
+  </script>
+
 </body>
 </html>
