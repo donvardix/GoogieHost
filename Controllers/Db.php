@@ -16,7 +16,8 @@ class Db
     global $pdo;
     $query=$pdo->query('SELECT item, item_under FROM list_items')->fetchAll(PDO::FETCH_OBJ);
     foreach ($query as $el) {
-      echo '<a href="/?id='.$el->item_under.'">'.$el->item.'</a><br>';
+      $steam_link="https://steamcommunity.com/market/listings/570/".str_replace(' ', '%20', $el->item);
+      echo '<a target="_blank" href='.$steam_link.'><img src="/images/steam.png" width="20px" alt=""></a><a href="/?id='.$el->item_under.'">'.$el->item.'</a><br>';
     }
   }
 
