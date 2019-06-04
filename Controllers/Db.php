@@ -5,11 +5,11 @@ date_default_timezone_set('Europe/Kiev'); // Установка часового
 
 class Db
 {
-  static function send($arr, $dbname){ // Функция отправки данных в БД
+  static function send($val, $dbname){ // Функция отправки данных в БД
     global $pdo;
     $sql="INSERT INTO `".$dbname."`(date, val) VALUES(?, ?)";
     $query=$pdo->prepare($sql);
-    $query->execute([date('Y-m-d H:i:s'), $arr['val']]);
+    $query->execute([date('Y-m-d H:i:s'), $val]);
   }
 
   static function get_name_item(){ // Функция для получения всех предметов из БД
@@ -21,26 +21,14 @@ class Db
     }
   }
 
-  static function get($dbname){ // Функция для получения данных из БД
-    global $pdo;
-    $dbname=str_replace(' ', '_', mb_strtolower($dbname));
-    $query=$pdo->query("SELECT date, val FROM `".$dbname."`")->fetchAll(PDO::FETCH_OBJ);
-    echo '<h1>'.$dbname.'</h1>';
-    foreach ($query as $el) {
-      echo "$el->date || $el->val<hr>";
-    }
-  }
-
   static function create_table($name){ // Функция создания таблицы
     global $pdo;
     $sql="CREATE TABLE `".$name."`(id INT( 11 ) AUTO_INCREMENT PRIMARY KEY, date TIMESTAMP, val INT( 255 ))";
-    //$sql="CREATE TABLE reaper's_wreath(id INT( 11 ) AUTO_INCREMENT PRIMARY KEY, date TIMESTAMP, val INT( 255 ))";
     $pdo->exec($sql);
   }
 
   static function ToJson($dbname){ // Функция преобразования массива из БД в json формат
     global $pdo;
-    //$query=$pdo->query("SELECT date, val FROM `".$dbname."`")->fetchAll(PDO::FETCH_OBJ);
     $query=$pdo->query("SELECT date, val FROM `".$dbname."`")->fetchAll(PDO::FETCH_OBJ);
     $arr=[];
     foreach ($query as $el) {
@@ -65,7 +53,7 @@ class Db
     }
   }
 
-  static function item_underTOitem($item_under){
+  static function item_underTOitem($item_under){ // Функция поиска полного название предмета по сокращенному
     global $pdo;
     $sql='SELECT item, item_under FROM list_items WHERE item_under = ?';
     $query=$pdo->prepare($sql);
