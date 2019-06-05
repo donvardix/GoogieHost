@@ -32,12 +32,12 @@
           rangeSelector: {
   					buttons: [{
   							type: 'day',
-  							count: 1,
-  							text: '1D'
-  					}, {
-  							type: 'day',
   							count: 7,
   							text: '1W'
+  					}, {
+  							type: 'month',
+  							count: 1,
+  							text: '1M'
   					}, {
   							type: 'all',
   							count: 1,
