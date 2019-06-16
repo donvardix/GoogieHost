@@ -20,8 +20,12 @@
     <div id="list">
       <?php foreach(Db::get_name_item() as $item): ?>
         <a target="_blank" href="https://steamcommunity.com/market/listings/570/<?=str_replace(' ', '%20', $item->item) ?>"><img src="/images/steam.png" width="20px" alt=""></a><a href="/?id=<?=$item->item_under ?>"><?=$item->item ?></a>
+<<<<<<< HEAD
         <!--<button id="delete" class="btn-danger" type="button">del</button>-->
         <br>
+=======
+        <!--<button id="delete" class="btn-danger" type="button">del</button><br>-->
+>>>>>>> b739c6820af463003eab8ca0eaeb23918179c401
       <?php endforeach; ?>
     </div>
   </div>
