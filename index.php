@@ -17,7 +17,13 @@
     </form>
     <div id="info"></div>
     <hr>
-    <div id="list"><?php Db::get_name_item(); ?></div>
+    <div id="list">
+      <?php foreach(Db::get_name_item() as $item): ?>
+        <a target="_blank" href="https://steamcommunity.com/market/listings/570/<?=str_replace(' ', '%20', $item->item) ?>"><img src="/images/steam.png" width="20px" alt=""></a><a href="/?id=<?=$item->item_under ?>"><?=$item->item ?></a>
+        <!--<button id="delete" class="btn-danger" type="button">del</button>-->
+        <br>
+      <?php endforeach; ?>
+    </div>
   </div>
 
 
@@ -48,7 +54,7 @@
           },
 
           title: {
-              text: <?php echo  "'".str_replace("'", '', Db::item_underTOitem($_GET['id']))."'"; ?>
+              text: '<?= str_replace("'", '', Db::item_underTOitem($_GET['id'])); ?>'
           },
 
           series: [{
@@ -76,7 +82,7 @@
       data: {'name':name},
       dataType: 'html',
       success: function(data){
-        $('#list').html(data);
+        location.reload();
       }
     });
   });
